@@ -1,5 +1,3 @@
-list_empty([]).
-
 writeSpace(N) :- N=:=0; (write(' '), writeSpace(N-1)).
 
 printLine([]).
@@ -23,48 +21,3 @@ display_game([A|B], N) :-
 
 initialBoard([[white]]).
 initialBoard([[empty,empty,empty],[empty,white,empty],[empty,empty,empty]]).
-
-exampleBoard(
-	[
-		[empty,     empty,     empty,      empty,     empty,     empty,     empty,     empty],
-		[empty,     white,     empty,      empty,     empty,     empty,     white,     empty],
-		[black,     white,     white,      empty,     black,     white,     empty,     empty],
-		[black,     blackCone, black,      black,     whiteCone, black,     empty,     empty],
-		[white,     white,     empty,      white,     black,     black,     white,     empty],
-		[empty,     empty,     empty,      black,     empty,     white,     empty,     empty],
-		[empty,     empty,     empty,      empty,     black,     empty,     empty,     empty]
-	]
-).
-exampleBoard2(
-	[
-		[empty,     empty,     empty,      empty,     empty,     empty,     empty,     empty],
-		[empty,     white,     empty,      empty,     white,     black,     white,     empty],
-		[black,     white,     white,      empty,     black,     white,     empty,     empty],
-		[black,     blackCone, black,      black,     whiteCone, black,     empty,     empty],
-		[white,     white,     empty,      white,     black,     black,     white,     empty],
-		[empty,     empty,     empty,      black,     empty,     white,     empty,     empty],
-		[empty,     empty,     empty,      empty,     black,     empty,     empty,     empty]
-	]
-).
-exampleBoard3(
-	[
-		[black,     empty,     empty,      empty,     empty,     empty,     empty,     empty],
-		[white,     white,     empty,      empty,     empty,     empty,     white,     empty],
-		[black,     white,     white,      empty,     black,     white,     empty,     empty],
-		[black,     blackCone, black,      black,     whiteCone, black,     empty,     empty],
-		[white,     white,     empty,      white,     black,     black,     white,     empty],
-		[empty,     empty,     empty,      black,     empty,     white,     empty,     empty],
-		[empty,     empty,     empty,      empty,     black,     empty,     empty,     empty]
-	]
-).
-exampleBoard4(
-	[
-		[black,     empty,     empty,      empty,     empty,     empty,     empty,     empty],
-		[white,     white,     empty,      empty,     empty,     empty,     white,     white],
-		[black,     white,     white,      empty,     black,     white,     black,     empty],
-		[black,     blackCone, black,      black,     whiteCone, black,     empty,     empty],
-		[white,     white,     empty,      white,     black,     black,     white,     empty],
-		[empty,     empty,     empty,      black,     empty,     white,     empty,     empty],
-		[empty,     empty,     empty,      empty,     black,     empty,     empty,     empty]
-	]
-).

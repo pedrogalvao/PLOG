@@ -32,7 +32,6 @@ validMove(
 
 validMove(Board1, Board2) :-
 	\+ list_empty(Board1),
-	write(a),
 	(
 		append(X,Y,Board1), 
 		\+ list_empty(X),
@@ -50,7 +49,6 @@ validMove(Board1, Board2) :-
 		validMove(X,Y)
 	) ;
 	(
-		write(b),
 		transpose(Board1, Board1T),
 		transpose(Board2, Board2T),
 		append(X,Y,Board1T), 
@@ -61,7 +59,6 @@ validMove(Board1, Board2) :-
 		validMove(Y,Z)
 	) ;
 	(
-		write(c),
 		transpose(Board1, Board1T),
 		transpose(Board2, Board2T),
 		append(X,Z,Board1T), 
@@ -69,8 +66,37 @@ validMove(Board1, Board2) :-
 		\+ list_empty(Z), 
 		append(Y,Z,Board2T), 
 		\+ list_empty(Y), 
-		write(X),
-		write(Y),
-		write(Z),
 		validMove(X,Y)
 	) .
+
+
+test(Board, Result) :-
+	(
+		append(A, B, Board),
+		B = [Line | C],
+		append(D, E, Line),
+		append(F,[empty,empty],D),
+		(
+			append(F,[white, black], R) ;
+			append(F,[black, white], R)
+		),
+		append(R, E, Line2),
+		append(A, [Line2], R2),
+		append(R2, C, Result)
+	)
+	;
+	(
+		transpose(Board, BoardT),
+		append(A, B, BoardT),
+		B = [Line | C],
+		append(D, E, Line),
+		append(F,[empty,empty],D),
+		(
+			append(F,[white, black], R) ;
+			append(F,[black, white], R)
+		),
+		append(R, E, Line2),
+		append(A, [Line2], R2),
+		append(R2, C, RR),
+		transpose(RR, Result)
+	).
