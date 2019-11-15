@@ -2,7 +2,7 @@ writeSpace(N) :- N=:=0; (write(' '), writeSpace(N-1)).
 
 printLine([]).
 printLine([A|B]):-
-	(A = empty, write('  '), printLine(B));
+	(A = empty, write(' .'), printLine(B));
 	(A = white, write(' O'), printLine(B));
 	(A = black, write(' X'), printLine(B));
 	(A = whiteCone, write(' o'), printLine(B));

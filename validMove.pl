@@ -1,3 +1,5 @@
+use_module(library(lists)).
+
 validMove([[empty, empty]],[[white, black]]).
 validMove([[empty, empty]],[[black, white]]).
 
@@ -32,7 +34,9 @@ validMove(
 
 validMove(Board1, Board2) :-
 	\+ list_empty(Board1),
+	write(a),
 	(
+		write(b),
 		append(X,Y,Board1), 
 		\+ list_empty(X),
 		\+ list_empty(Y), 
@@ -49,24 +53,25 @@ validMove(Board1, Board2) :-
 		validMove(X,Y)
 	) ;
 	(
+		write(c),
 		transpose(Board1, Board1T),
-		transpose(Board2, Board2T),
 		append(X,Y,Board1T), 
 		\+ list_empty(X),
 		\+ list_empty(Y), 
 		append(X,Z,Board2T),
 		\+ list_empty(Z), 
-		validMove(Y,Z)
+		validMove(Y,Z),
+		transpose(Board2T, Board2)
 	) ;
 	(
 		transpose(Board1, Board1T),
-		transpose(Board2, Board2T),
 		append(X,Z,Board1T), 
 		\+ list_empty(X),
 		\+ list_empty(Z), 
 		append(Y,Z,Board2T), 
 		\+ list_empty(Y), 
-		validMove(X,Y)
+		validMove(X,Y),
+		transpose(Board2T, Board2)
 	) .
 
 
@@ -77,8 +82,8 @@ test(Board, Result) :-
 		append(D, E, Line),
 		append(F,[empty,empty],D),
 		(
-			append(F,[white, black], R) ;
-			append(F,[black, white], R)
+			append(F, [white, black], R) ;
+			append(F, [black, white], R)
 		),
 		append(R, E, Line2),
 		append(A, [Line2], R2),
@@ -92,11 +97,13 @@ test(Board, Result) :-
 		append(D, E, Line),
 		append(F,[empty,empty],D),
 		(
-			append(F,[white, black], R) ;
-			append(F,[black, white], R)
+			append(F, [white, black], R) ;
+			append(F, [black, white], R)
 		),
 		append(R, E, Line2),
 		append(A, [Line2], R2),
 		append(R2, C, RR),
 		transpose(RR, Result)
 	).
+
+
