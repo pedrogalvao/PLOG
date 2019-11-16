@@ -39,6 +39,14 @@ oponnent(Player, Oponnent) :-
 		(Player = white, Opponent = black)
 	).
 
+/*forall(List, Cond) :-
+	List = [];
+	(
+		List = [A|Rest],
+		Cond(A),
+		forall(Rest,Cond(A))
+	).*/
+
 
 
 exampleBoard(

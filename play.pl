@@ -51,26 +51,18 @@ value(Board, Player, Value) :-
     );
     Value is 0.
 
-
-
+compare_values(Board1, Board2, Player) :-
+    write(comp1_)
+    value(Board1, Player, Value1), 
+    value(Board2, Player, Value2), 
+    Value1 >= Value2,
+    write(comp2_).
 
 choose_move(Board1, Board2, Player) :-
-    (
-        test(Board1, Board2),
-        game_over(Board2, Player),
-        write('\n'),
-        write(winner)
-    );
-    (
-        test(Board1, Board2),
-        (
-            write(ssss),
-            oponnent(Player, Opponent),
-            \+ game_over(Board2, Opponent),
-            write('\n'),
-            write(notwinner)
-        )
-    ).
+    valid_moves(Board1, Player, ListOfMoves),
+    member(Board2,ListOfMoves),
+    write(a),
+    forall(member(N, ListOfMoves), compare_values(Board2, N, Player)).
 
 play(Initial, Final, Player) :-
     expand(Initial, Expanded),

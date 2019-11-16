@@ -1,5 +1,3 @@
-use_module(library(lists)).
-
 validMove([[empty, empty]],[[white, black]]).
 validMove([[empty, empty]],[[black, white]]).
 
@@ -75,7 +73,7 @@ validMove(Board1, Board2) :-
 	) .
 
 
-test(Board, Result) :-
+is_valid(Board, Result) :-
 	(
 		append(A, B, Board),
 		B = [Line | C],
@@ -105,4 +103,6 @@ test(Board, Result) :-
 		transpose(RR, Result)
 	).
 
+valid_moves(Board, Player, ListOfMoves) :-
+	findall(Result, is_valid(Board, Result), ListOfMoves).
 
