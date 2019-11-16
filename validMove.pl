@@ -88,8 +88,7 @@ test(Board, Result) :-
 		append(R, E, Line2),
 		append(A, [Line2], R2),
 		append(R2, C, Result)
-	)
-	;
+	);
 	(
 		transpose(Board, BoardT),
 		append(A, B, BoardT),

@@ -1,0 +1,39 @@
+checkWinner([[white, white, white, white, white]], white).
+checkWinner([[black, black, black, black, black]], black).
+
+line5(Line, Color) :-
+    (
+        append([white, white, white, white, white], _, Line),
+        Color = white
+    );    
+    (
+        append([black, black, black, black, black], _, Line),
+        Color = black
+    );
+    (
+        Line = [_|Rest],
+        line5(Rest, Color)
+    ).
+
+checkLines(Board, Winner) :-
+    Board = [FirstLine | OtherLines],
+    (
+        line5(FirstLine, Winner);
+        (
+            \+ list_empty(OtherLines),
+            checkLines(OtherLines, Winner)
+        )
+    ).
+
+checkWinner(Board, Winner) :-
+	\+ list_empty(Board),
+	write(checkwinner_),
+	(
+		write(b),
+		checkLines(Board, Winner)
+	) ;
+	(
+		write(c),
+		transpose(Board, BoardT),
+		checkLines(BoardT, Winner)
+	).

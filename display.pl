@@ -16,7 +16,7 @@ display_game([A|B], N) :-
 	(
 		list_empty(B);
 		display_game(B,N+1)
-	).
+	), !.
 
 
 initialBoard([[white]]).

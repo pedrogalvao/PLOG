@@ -37,7 +37,7 @@ exampleBoard(
 		[empty,     empty,     empty,      empty,     empty,     empty,     empty,     empty],
 	    [empty,     white,     empty,      empty,     empty,     empty,     white,     empty],
 		[black,     white,     white,      empty,     black,     white,     empty,     empty],
-		[black,     blackCone, black,      black,     whiteCone, black,     empty,     empty],
+		[black,     black,     black,      black,     white,     black,     empty,     empty],
 		[white,     white,     empty,      white,     black,     black,     white,     empty],
 		[empty,     empty,     empty,      black,     empty,     white,     empty,     empty],
 		[empty,     empty,     empty,      empty,     black,     empty,     empty,     empty]
@@ -100,5 +100,33 @@ smallBoard3(
 		[empty,     empty,     empty],
 		[empty,     whiteCone, black],
 		[white,     white,     black]
+	]
+).
+
+exampleBoardW(
+	[
+		[empty,     black,     empty,      empty,     empty,     empty,     empty,     empty],
+		[white,     white,     empty,      empty,     empty,     empty,     white,     empty],
+		[black,     white,     white,      white,     white,     white,     empty,     empty],
+		[black,     black,     black,      black,     white,     black,     empty,     empty],
+		[white,     white,     empty,      white,     black,     black,     white,     empty],
+		[empty,     empty,     empty,      black,     empty,     white,     empty,     empty],
+		[empty,     empty,     empty,      empty,     black,     empty,     empty,     empty]
+	]
+).
+
+emptyBoard(
+	[
+		[empty,     empty,     empty],
+		[empty,     empty,     empty],
+		[empty,     empty,     empty]
+	]
+).
+
+onePieceBoard(
+	[
+		[empty,     empty,     empty],
+		[black,     empty,     empty],
+		[empty,     empty,     empty]
 	]
 ).
