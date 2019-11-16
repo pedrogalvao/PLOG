@@ -32,6 +32,15 @@ columnN([H|T], I, [R|X]):-
    rowN(H, I, R), 
 columnN(T,I,X).
 
+
+oponnent(Player, Oponnent) :-
+	(
+		(Player = black, Opponent = white);
+		(Player = white, Opponent = black)
+	).
+
+
+
 exampleBoard(
 	[
 		[empty,     empty,     empty,      empty,     empty,     empty,     empty,     empty],
