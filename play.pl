@@ -1,7 +1,7 @@
-chooseMove(Board1, Board2, Player) :-
+choose_move(Board1, Board2, Player) :-
     (
         test(Board1, Board2),
-        checkWinner(Board2, Player),
+        game_over(Board2, Player),
         write('\n'),
         write(winner)
     );
@@ -13,7 +13,7 @@ chooseMove(Board1, Board2, Player) :-
                 (Player = black, Opponent = white);
                 (Player = white, Opponent = black)
             ),
-            \+ checkWinner(Board2, Opponent),
+            \+ game_over(Board2, Opponent),
             write('\n'),
             write(notwinner)
         )
@@ -21,7 +21,7 @@ chooseMove(Board1, Board2, Player) :-
 
 play(Initial, Final, Player) :-
     expand(Initial, Expanded),
-    chooseMove(Expanded, Next, Player),
+    choose_move(Expanded, Next, Player),
     display_game(Next), !,
     (
         (

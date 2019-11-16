@@ -25,7 +25,7 @@ checkLines(Board, Winner) :-
         )
     ).
 
-checkWinner(Board, Winner) :-
+game_over(Board, Winner) :-
 	\+ list_empty(Board),
 	write(checkwinner_),
 	(
