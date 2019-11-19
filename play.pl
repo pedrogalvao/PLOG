@@ -117,6 +117,7 @@ getNumber(N):-
     ).
 
 startPvP :- 
+    clearConsole,
     emptyBoard(A),
     display_game(A), nl,
     write('Player white, choose your move'), nl,
@@ -125,6 +126,7 @@ startPvP :-
     continuePvP(NextBoard, black).
 
 continuePvP(Board, Player) :-
+    clearConsole,
     display_game(Board), nl,
     write('Player '), write(Player), write(', choose your move'), nl,
     getPlayerMove(Move),

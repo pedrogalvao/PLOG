@@ -21,8 +21,8 @@ mainMenu:-
 	get_char(_),
 	(
 		Input = '1' -> gameModeMenu;
-		Input = '2' ;
-		Input = '3' -> aboutMenu, mainMenu;
+		Input = '2' -> howToPlay;
+		Input = '3' -> howToPlay;
 		Input = '4';
 
 		nl,
@@ -33,12 +33,11 @@ mainMenu:-
 
 
 gameModeMenu:-
-	clearConsole,
 	printGameModeMenu,
 	get_char(Input),
 	get_char(_),
 	(
-		Input = '1' -> write('not implemented yet');
+		Input = '1' -> startPvP;
 		Input = '2' -> write('not implemented yet');
 		Input = '3' -> play, mainMenu;
 		Input = '4' ;
@@ -49,21 +48,31 @@ gameModeMenu:-
 		mainMenu
 	).
 
+howToPlay :-
+	printHowToPlay,
+	get_char(_),
+	mainMenu.
+
+
 printMainMenu:-
+	clearConsole,
 	write('___________________________________________'), nl,
+	write('|                                         |'), nl,
 	write('|              << TAIGO >>                |'), nl,
 	write('|_________________________________________|'), nl,
 	write('|                                         |'), nl,
 	write('|         1. Play                         |'), nl,
-	write('|         1.How to Play                   |'), nl,
-	write('|         2. Exit                         |'), nl,
+	write('|         2. How to Play                  |'), nl,
+	write('|         3. Exit                         |'), nl,
 	write('|                                         |'), nl,
 	write('|_________________________________________|'), nl,
 	write('Choose an option:'), nl.
 
 
 printGameModeMenu:-
+	clearConsole,
 	write('___________________________________________'), nl,
+	write('|                                         |'), nl,
 	write('|       << Choose Game Mode >>            |'), nl,
 	write('|_________________________________________|'), nl,
 	write('|                                         |'), nl,
@@ -75,28 +84,31 @@ printGameModeMenu:-
 	write('|_________________________________________|'), nl,
 	write('Choose an option:'), nl.
 
-howToPlay :- 
+printHowToPlay :- 
+	clearConsole,
 	write('__________________________________________________________________'), nl,
+	write('|                                                                |'), nl,
 	write('|                      << How to play >>                         |'), nl,
 	write('|________________________________________________________________|'), nl,
-	write('|   O Taigo é um jogo de tabuleiro para dois jogadores inventado |'), nl,
-	write('| por Néstor Romeral Andrés.                                     |'), nl,
-	write('|   Cada um dos jogadores possui inicialmente vinte peças        |'), nl,
-	write('| hexagonais e dez cones. Cada jogador tem uma cor atribuída,    |'), nl,
-	write('| sendo que as peças hexagonais têm a cor dos dois jogadores e os|'), nl,
-	write('| cones têm apenas a cor de cada jogador. O jogo consiste em     |'), nl,
-	write('| dispor as peças a mesa até que um dos jogadores consiga formar |'), nl,
-	write('| uma fila com cinco peças adjacentes.                           |'), nl,
-	write('|   Eventualmente, durante o jogo, serão criados buracos entre os|'), nl,
-	write('| hexágonos que devem ser preenchidos com cones. Quando o jogo   |'), nl,
+	write('|   O Taigo e um jogo de tabuleiro para dois jogadores inventado |'), nl,
+	write('| por Nestor Romeral Andres.                                     |'), nl,
+	write('|   Cada um dos jogadores possui inicialmente vinte pecas        |'), nl,
+	write('| hexagonais e dez cones. Cada jogador tem uma cor atribuida,    |'), nl,
+	write('| sendo que as pecas hexagonais tem a cor dos dois jogadores e os|'), nl,
+	write('| cones tem apenas a cor de cada jogador. O jogo consiste em     |'), nl,
+	write('| dispor as pecas a mesa ate que um dos jogadores consiga formar |'), nl,
+	write('| uma fila com cinco pecas adjacentes.                           |'), nl,
+	write('|   Eventualmente, durante o jogo, serao criados buracos entre os|'), nl,
+	write('| hexagonos que devem ser preenchidos com cones. Quando o jogo   |'), nl,
 	write('| demora tempo suficiente, os jogadores podem ficar sem cones da |'), nl,
-	write('| sua cor. Nessa situação, serão forçados a jogar com os cones do|'), nl,
-	write('| adversário.                                                    |'), nl,
+	write('| sua cor. Nessa situacao, serao forcados a jogar com os cones do|'), nl,
+	write('| adversario.                                                    |'), nl,
 	write('|                                                                |'), nl,
 	write('|    Comandos:                                                   |'), nl,
 	write('|   Ao jogar o jogador deve especificar as coordenadas dos       |'), nl,
-	write('| espaços onde desejar posicionar suas peças. Deve especificar   |'), nl,
-	write('| numeros inteiros indicando primeiro a coordenada da parte      |'), nl,
-	write('| branca e depois a da parte preta.                              |'), nl,
+	write('| espacos onde desejar posicionar suas pecas. Deve especificar   |'), nl,
+	write('| numeros inteiros indicando primeiro as coordenadas da parte    |'), nl,
+	write('| branca e depois a da parte preta. Cada numero deve ser escrito |'), nl,
+	write('| com exatamente 2 algarismos.                                   |'), nl,
 	write('|________________________________________________________________|'), nl,
-	write('Choose an option:'), nl.
+	write('Press enter to go back to the main menu'), nl.

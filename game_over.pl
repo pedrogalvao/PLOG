@@ -41,13 +41,10 @@ checkLines(Board, Winner) :-
 
 game_over(Board, Winner) :-
 	\+ list_empty(Board),
-	write(checkwinner_),
 	(
-		write(b),
 		checkLines(Board, Winner)
 	) ;
 	(
-		write(c),
 		transpose(Board, BoardT),
 		checkLines(BoardT, Winner)
 	).
