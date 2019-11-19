@@ -38,7 +38,7 @@ columnN([H|T], I, [R|X]):-
 columnN(T,I,X).
 
 
-oponnent(Player, Oponnent) :-
+opponent(Player, Opponent) :-
 	(
 		(Player = black, Opponent = white);
 		(Player = white, Opponent = black)

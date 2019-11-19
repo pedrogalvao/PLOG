@@ -5,8 +5,8 @@ value(Board, Player, Value) :-
         !
     );
     (
-        oponnent(Player, Opponent),
-        game_over(Board, Oponnent),
+        opponent(Player, Opponent),
+        game_over(Board, Opponent),
         Value is -1000,
         !
     );
@@ -52,7 +52,7 @@ value(Board, Player, Value) :-
     Value is 0.
 
 compare_values(Board1, Board2, Player) :-
-    write(comp1_)
+    write(comp1_),
     value(Board1, Player, Value1), 
     value(Board2, Player, Value2), 
     Value1 >= Value2,
@@ -64,7 +64,7 @@ choose_move(Board1, Board2, Player) :-
     write(a),
     forall(member(N, ListOfMoves), compare_values(Board2, N, Player)).
 
-play() :- 
+play :- 
     emptyBoard(A),
     play(A, B, white).
 
@@ -82,3 +82,73 @@ play(Initial, Final, Player) :-
             play(Next, Final, black)
         )
     ).
+
+getPlayerMove(Move):-
+    write('x1='),
+    getNumber(X1),
+    get_char(_),
+    write('y1='),
+    getNumber(Y1),
+    get_char(_),
+    write('x2='),
+    getNumber(X2),
+    get_char(_),
+    write('y2='),
+    getNumber(Y2),
+    get_char(_),
+    Move = [[X1, Y1],[X2, Y2]],
+    write(Move).
+
+getNumber(N):-
+    (
+        get_char(C1),
+        get_char(C2),
+        (
+            member(C1,['0','1','2','3','4','5','6','7','8','9']),
+            (
+                member(C2,['0','1','2','3','4','5','6','7','8','9']),
+                number_chars(N, [C1,C2])
+            );
+            (
+                \+member(C2,['0','1','2','3','4','5','6','7','8','9']),
+                number_chars(N, [C1])
+            )
+        )
+    ).
+
+startPvP :- 
+    emptyBoard(A),
+    display_game(A), nl,
+    write('Player white, choose your move'), nl,
+    getPlayerMove(Move),
+    move(Move, A, NextBoard),
+    continuePvP(NextBoard, black).
+
+continuePvP(Board, Player) :-
+    display_game(Board), nl,
+    write('Player '), write(Player), write(', choose your move'), nl,
+    getPlayerMove(Move),
+    (
+        (
+            move(Move, Board, NextBoard),
+            (
+                (
+                    game_over(NextBoard, Winner),
+                    display_game(NextBoard),
+                    nl, write('Game Over'), nl,
+                    write('Winner:'),
+                    write(Winner)
+                );
+                (
+                    expand(NextBoard, NextBoard2),
+                    opponent(Player, NextPlayer),
+                    continuePvP(NextBoard2, NextPlayer)
+                )
+            )
+        );
+        (
+            nl, write('Invalid move, try again'), nl,
+            continuePvP(Board, Player)
+        )
+    ).
+

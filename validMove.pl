@@ -17,12 +17,12 @@ move(Move, Board, NewBoard) :-
 	is_valid_move(Move, Board),
 	write(is_valid),
 	Move = [[X1, Y1],[X2,Y2]],
-	nth0(X1, Board, Line1),
-	replace(Line1,Y1,white,NewLine1),
-	replace(Board, X1, NewLine1, PreNewBoard),
-	nth0(X2, PreNewBoard, Line2),
-	replace(Line2,Y2,black,NewLine2),
-	replace(PreNewBoard, X2, NewLine2, NewBoard).
+	nth0(Y1, Board, Line1),
+	replace(Line1,X1,white,NewLine1),
+	replace(Board, Y1, NewLine1, PreNewBoard),
+	nth0(Y2, PreNewBoard, Line2),
+	replace(Line2,X2,black,NewLine2),
+	replace(PreNewBoard, Y2, NewLine2, NewBoard).
 
 
 
