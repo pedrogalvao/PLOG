@@ -64,6 +64,10 @@ choose_move(Board1, Board2, Player) :-
     write(a),
     forall(member(N, ListOfMoves), compare_values(Board2, N, Player)).
 
+play() :- 
+    emptyBoard(A),
+    play(A, B, white).
+
 play(Initial, Final, Player) :-
     expand(Initial, Expanded),
     choose_move(Expanded, Next, Player),
@@ -78,11 +82,3 @@ play(Initial, Final, Player) :-
             play(Next, Final, black)
         )
     ).
-
-testBoard(
-	[
-		[white,     black,     empty],
-		[black,     white,     black],
-		[empty,     empty,     empty]
-	]
-).

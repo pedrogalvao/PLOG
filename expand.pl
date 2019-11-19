@@ -26,13 +26,13 @@ addColumnRight(Board, Result) :-
 
 addRowTop(Board, Result) :-		
 	Board = [FirstLine|_],
-	lenght(FirstLine, K),
+	length(FirstLine, K),
 	fillList(empty, K, NewLine),
 	Result = [NewLine|Board].
 	
 addRowBottom(Board, Result) :-		
 	Board = [FirstLine|_],
-	lenght(FirstLine, K),
+	length(FirstLine, K),
 	fillList(empty, K, NewLine),
 	reverse(Board,RevBoard),
 	reverse([NewLine|RevBoard], Result).
@@ -56,7 +56,7 @@ expand(Board, Result) :-
 		),
 		(
 			last(Board, LastLine),
-			lenght(Board, K),
+			length(Board, K),
 			K2 is K-1,
 			nth0(K2, Board, LastLine2),
 			(
@@ -106,7 +106,7 @@ expand(Board, Result) :-
 		),
 		(
 			nth0(0, Board, FirstLine),
-			lenght(FirstLine, K),
+			length(FirstLine, K),
 			columnN(Board, K, LastColumn),
 			K2 is K-1,
 			write(LastColumn),

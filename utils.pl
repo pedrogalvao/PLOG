@@ -1,6 +1,6 @@
 list_empty([]).
 list_empty([[]]).
-
+/*
 transpose([[]|_], []).
 transpose(Matrix, [Row|Rows]) :- transpose_1st_col(Matrix, Row, RestMatrix),
                                  transpose(RestMatrix, Rows).
@@ -11,7 +11,12 @@ lenght([],0).
 lenght(List, N) :-
 	List = [_|List2],
 	lenght(List2, N2),
-	N is N2+1.
+	N is N2+1.*/
+
+replace(List, Idx, With, ListOut) :-
+   append(Before, [_Discard|Rest], List),
+   length(Before,Idx),
+   append(Before, [With|Rest], ListOut).
 
 fillList(Element, 1, List) :- List = [Element].
 fillList(Element, Number, List) :-
@@ -38,15 +43,6 @@ oponnent(Player, Oponnent) :-
 		(Player = black, Opponent = white);
 		(Player = white, Opponent = black)
 	).
-
-/*forall(List, Cond) :-
-	List = [];
-	(
-		List = [A|Rest],
-		Cond(A),
-		forall(Rest,Cond(A))
-	).*/
-
 
 
 exampleBoard(
@@ -144,6 +140,15 @@ onePieceBoard(
 	[
 		[empty,     empty,     empty],
 		[black,     empty,     empty],
+		[empty,     empty,     empty]
+	]
+).
+
+
+testBoard(
+	[
+		[white,     black,     empty],
+		[black,     white,     black],
 		[empty,     empty,     empty]
 	]
 ).

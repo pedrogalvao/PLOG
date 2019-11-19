@@ -1,3 +1,31 @@
+is_valid_move(Move, Board) :-
+	Move = [[X1, Y1],[X2,Y2]],
+	nth0(X1, Board, Line1),
+	nth0(Y1, Line1, Elem1),
+	Elem1 = empty,
+	(
+		((X2 is X1-1; X2 is X1+1), (Y2 is Y1));
+		((X2 is X1), (Y2 is Y1-1; Y2 is Y1+1));
+		((X2 is X1-1), (Y2 is Y1+1));
+		((X2 is X1+1), (Y2 is Y1-1))
+	),
+	nth0(X2, Board, Line2),
+	nth0(Y2, Line2, Elem2),
+	Elem2 = empty.
+
+move(Move, Board, NewBoard) :-
+	is_valid_move(Move, Board),
+	write(is_valid),
+	Move = [[X1, Y1],[X2,Y2]],
+	nth0(X1, Board, Line1),
+	replace(Line1,Y1,white,NewLine1),
+	replace(Board, X1, NewLine1, PreNewBoard),
+	nth0(X2, PreNewBoard, Line2),
+	replace(Line2,Y2,black,NewLine2),
+	replace(PreNewBoard, X2, NewLine2, NewBoard).
+
+
+
 validMove([[empty, empty]],[[white, black]]).
 validMove([[empty, empty]],[[black, white]]).
 
@@ -70,7 +98,7 @@ validMove(Board1, Board2) :-
 		\+ list_empty(Y), 
 		validMove(X,Y),
 		transpose(Board2T, Board2)
-	) .
+	).
 
 
 is_valid(Board, Result) :-
@@ -78,9 +106,9 @@ is_valid(Board, Result) :-
 		append(A, B, Board),
 		B = [Line | C],
 		append(D, E, Line),
-		append(F,[empty,empty],D),
+		append(F, [empty,empty], D),
 		(
-			append(F, [white, black], R) ;
+			append(F, [white, black], R);
 			append(F, [black, white], R)
 		),
 		append(R, E, Line2),
@@ -94,7 +122,7 @@ is_valid(Board, Result) :-
 		append(D, E, Line),
 		append(F,[empty,empty],D),
 		(
-			append(F, [white, black], R) ;
+			append(F, [white, black], R);
 			append(F, [black, white], R)
 		),
 		append(R, E, Line2),
@@ -102,7 +130,10 @@ is_valid(Board, Result) :-
 		append(R2, C, RR),
 		transpose(RR, Result)
 	).
+/*
+valid_moves(Board, Player, ListOfMoves) :-
+	findall(Result, is_valid(Board, Result), ListOfMoves).*/
 
 valid_moves(Board, Player, ListOfMoves) :-
-	findall(Result, is_valid(Board, Result), ListOfMoves).
+	findall(Move, is_valid_move(Move, Board), ListOfMoves).
 
