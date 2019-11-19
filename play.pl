@@ -117,13 +117,8 @@ getNumber(N):-
     ).
 
 startPvP :- 
-    clearConsole,
-    emptyBoard(A),
-    display_game(A), nl,
-    write('Player white, choose your move'), nl,
-    getPlayerMove(Move),
-    move(Move, A, NextBoard),
-    continuePvP(NextBoard, black).
+    emptyBoard(InitialBoard),
+    continuePvP(InitialBoard, white).
 
 continuePvP(Board, Player) :-
     clearConsole,
@@ -154,3 +149,12 @@ continuePvP(Board, Player) :-
         )
     ).
 
+
+evaluate_moves([], Board, Player, []).
+evaluate_moves(ListOfMoves, Board, Player, MovesValues) :-
+    append([X],Rest,ListOfMoves),
+    move(X, Board1, Board2),
+    value(Board2, Player, Value),
+    evaluate_moves(Rest, Board, Player, RestMovesValues),
+    append([X,Value], RestMovesValues, MovesValues).
+    
