@@ -27,4 +27,52 @@ move(Move, Board, NewBoard) :-
 valid_moves(Board, Player, ListOfMoves) :-
 	findall(Move, is_valid_move(Move, Board), ListOfMoves).
 
- 
+ count([],0).
+
+count([_|Tail], N) :-
+    count(Tail, N1), N is N1 + 1.
+
+higherValues([], B, A, B ).
+
+higherValues(MovesValues, AfterMovesValues) :- higherValues(MovesValues, AfterMovesValues, -1000, []).
+
+higherValues(MovesValues, BestMovesValues, MinValue, BestMovesValuesUntilNow) :-
+    append([X], Rest, MovesValues),
+    append(_, [Xval], X),
+    (
+        (
+            MinValue > Xval,
+            higherValues(Rest, BestMovesValues, MinValue, BestMovesValuesUntilNow)
+        );
+        (
+            Xval is MinValue,
+            append([X],  BestMovesValuesUntilNow,  BestMovesValuesUntilNow2),
+            higherValues(Rest, BestMovesValues, MinValue,  BestMovesValuesUntilNow2)
+        );
+        (
+            Xval > MinValue,
+            BestMovesValuesUntilNow2 = [X],
+            MinValue2 = Xval,
+            higherValues(Rest, BestMovesValues, MinValue2, BestMovesValuesUntilNow2)
+        )
+    ).
+
+evaluate_moves([], Board, Player, []).
+evaluate_moves(ListOfMoves, Board, Player, MovesValues) :-
+    append([X],Rest,ListOfMoves),
+    move(X, Board, Board2),
+    value(Board2, Player, Value),
+    evaluate_moves(Rest, Board, Player, RestMovesValues),
+    append([[X,Value]], RestMovesValues, MovesValues), !.
+
+get_ListOfMoves(Board1, Player, Move) :-
+    valid_moves(Board1, Player, ListOfMoves),
+    evaluate_moves(ListOfMoves, Board1, Player, MovesValues),
+    higherValues(MovesValues, AfterMovesValues),
+    count(AfterMovesValues, N),
+    random(0, N, Y),
+    nth0(Y, AfterMovesValues, Move1),
+    append([Move], _, Move1).
+
+choose_move(Board, Level, Move) :-
+    get_ListOfMoves(Board, black, Move).

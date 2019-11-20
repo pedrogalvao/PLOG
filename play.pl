@@ -11,41 +11,17 @@ value(Board, Player, Value) :-
         !
     );
     (
-        member(Line, Board),
-        aligned(Line, Player, 4),
+        aligned(Board, Player, 4),
         Value is 4,
         !
     );
     (
-        transpose(Board, BoardT),
-        member(Line,BoardT),
-        aligned(Line, Player, 4),
-        Value is 4,
-        !
-    );
-    (
-        member(Line,Board),
-        aligned(Line, Player, 3),
+        aligned(Board, Player, 3),
         Value is 3,
         !
     );
     (
-        transpose(Board, BoardT),
-        member(Line,BoardT),
-        aligned(Line, Player, 3),
-        Value is 3,
-        !
-    );
-    (
-        member(Line,Board),
-        aligned(Line, Player, 2),
-        Value is 2,
-        !
-    );
-    (
-        transpose(Board, BoardT),
-        member(Line,BoardT),
-        aligned(Line, Player, 2),
+        aligned(Board, Player, 2),
         Value is 2,
         !
     );
@@ -55,11 +31,6 @@ compare_values(Board1, Board2, Player) :-
     value(Board1, Player, Value1), 
     value(Board2, Player, Value2), 
     Value1 >= Value2.
-
-choose_move(Board1, Board2, Player) :-
-    valid_moves(Board1, Player, ListOfMoves),
-    member(Board2,ListOfMoves),
-    forall(member(N, ListOfMoves), compare_values(Board2, N, Player)).
 
 play :- 
     emptyBoard(A),
@@ -158,27 +129,57 @@ evaluate_moves(ListOfMoves, Board, Player, MovesValues) :-
     append([[X,Value]], RestMovesValues, MovesValues), !.
 
 
+startPvC :- 
+    emptyBoard(InitialBoard),
+    continuePvC(InitialBoard).
 
-higherValues([], B, A, B).
-higherValues(MovesValues, AfterMovesValues) :- higherValues(MovesValues, AfterMovesValues, -1000, []).
-higherValues(MovesValues, BestMovesValues, MinValue, BestMovesValuesUntilNow) :-
-    append([X], Rest, MovesValues),
-    append(_, [Xval], X),
+continuePvC(Board) :-
+    display_game(Board), nl,
+    write('Player white, choose your move'), nl,
+    getPlayerMove(Move),
     (
         (
-            MinValue > Xval,
-            higherValues(Rest, BestMovesValues, MinValue, BestMovesValuesUntilNow)
+            move(Move, Board, PreNextBoard),
+            (
+                add_cone(PreNextBoard, Player, NextBoard);
+                PreNextBoard = NextBoard
+            ),
+            (
+                (
+                    game_over(NextBoard, Winner),
+                    display_game(NextBoard),
+                    nl, write('Game Over'), nl,
+                    write('Winner:'),
+                    write(Winner)
+                );
+                (
+                    expand(NextBoard, NextBoard2)
+                )
+            )
         );
         (
-            Xval is MinValue,
-            append([X],  BestMovesValuesUntilNow,  BestMovesValuesUntilNow2),
-            higherValues(Rest, BestMovesValues, MinValue,  BestMovesValuesUntilNow2)
+            nl, write('Invalid move, try again'), nl,
+            continuePvP(Board, Player)
+        )
+    ), !,
+    display_game(NextBoard2),
+    choose_move(NextBoard2, 0, ComputerMove),
+    move(ComputerMove, NextBoard2, NextBoard3),
+    (
+        (
+            game_over(NextBoard3, Winner),
+            display_game(NextBoard3),
+            nl, write('Game Over'), nl,
+            write('Winner:'),
+            write(Winner)
         );
         (
-            Xval > MinValue,
-            BestMovesValuesUntilNow2 = [X],
-            MinValue2 = Xval,
-            higherValues(Rest, BestMovesValues, MinValue2, BestMovesValuesUntilNow2)
+            (
+                add_cone(NextBoard3, black, NextBoard4);
+                NextBoard4 = NextBoard3
+            ),
+            expand(NextBoard4, NextBoard5),
+            continuePvC(NextBoard5)
         )
     ).
 
@@ -202,6 +203,10 @@ add_cone(Board, Color, Result) :-
         Elem4 \= empty,
         nth0(Y2, Line3, Elem5),
         Elem5 \= empty,
+        nth0(X2, Line, Elem6),
+        Elem6 \= empty,
+        nth0(X3, Line, Elem7),
+        Elem7 \= empty,
         cone(Color, Cone),
         replace(Line, Y, Cone, NewLine),
         replace(Board, X, NewLine, Result)

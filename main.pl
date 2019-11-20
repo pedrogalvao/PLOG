@@ -5,6 +5,7 @@
 :- include('c:/Users/Estudio/Desktop/PLOG/PLOG/game_over.pl').
 :- include('c:/Users/Estudio/Desktop/PLOG/PLOG/expand.pl').
 :- use_module(library(lists)).
+:- use_module(library(random)).
 
 clearConsole:-
 	clearConsole(40), !.
@@ -22,8 +23,7 @@ mainMenu:-
 	(
 		Input = '1' -> gameModeMenu;
 		Input = '2' -> howToPlay;
-		Input = '3' -> howToPlay;
-		Input = '4';
+		Input = '3';
 
 		nl,
 		write('Error: invalid input.'), nl,
@@ -38,9 +38,8 @@ gameModeMenu:-
 	get_char(_),
 	(
 		Input = '1' -> startPvP;
-		Input = '2' -> write('not implemented yet');
-		Input = '3' -> play, mainMenu;
-		Input = '4' ;
+		Input = '2' -> startPvC;
+		Input = '3' ;
 
 		nl,
 		write('Error: invalid input.'), nl,
@@ -78,8 +77,7 @@ printGameModeMenu:-
 	write('|                                         |'), nl,
 	write('|         1. Player vs Player             |'), nl,
 	write('|         2. Player vs Computer           |'), nl,
-	write('|         3. Computer vs Computer         |'), nl,
-	write('|         2. Exit                         |'), nl,
+	write('|         3. Exit                         |'), nl,
 	write('|                                         |'), nl,
 	write('|_________________________________________|'), nl,
 	write('Choose an option:'), nl.

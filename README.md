@@ -1,9 +1,9 @@
 # PLOG
 
 ## TO DO:
-- Use cones
-- Function choose_move is not working (do it based on function 'value')
+- Board is always expanding to the right
 - Function value could consider opponent's positions
+- Create different levels
 - Adapt all the functions to meet the specified requirements
 - Improve code organization
 - Finish Report
