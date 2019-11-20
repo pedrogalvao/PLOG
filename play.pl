@@ -153,8 +153,10 @@ continuePvP(Board, Player) :-
 evaluate_moves([], Board, Player, []).
 evaluate_moves(ListOfMoves, Board, Player, MovesValues) :-
     append([X],Rest,ListOfMoves),
-    move(X, Board1, Board2),
+    move(X, Board, Board2),
+    display_game(Board2),
     value(Board2, Player, Value),
+    write('Value = '), write(Value),
     evaluate_moves(Rest, Board, Player, RestMovesValues),
-    append([X,Value], RestMovesValues, MovesValues).
+    append([[X,Value]], RestMovesValues, MovesValues), !.
     

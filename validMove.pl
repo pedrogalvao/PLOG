@@ -1,7 +1,7 @@
 is_valid_move(Move, Board) :-
 	Move = [[X1, Y1],[X2,Y2]],
-	nth0(X1, Board, Line1),
-	nth0(Y1, Line1, Elem1),
+	nth0(Y1, Board, Line1),
+	nth0(X1, Line1, Elem1),
 	Elem1 = empty,
 	(
 		((X2 is X1-1; X2 is X1+1), (Y2 is Y1));
@@ -9,13 +9,12 @@ is_valid_move(Move, Board) :-
 		((X2 is X1-1), (Y2 is Y1+1));
 		((X2 is X1+1), (Y2 is Y1-1))
 	),
-	nth0(X2, Board, Line2),
-	nth0(Y2, Line2, Elem2),
+	nth0(Y2, Board, Line2),
+	nth0(X2, Line2, Elem2),
 	Elem2 = empty.
 
 move(Move, Board, NewBoard) :-
 	is_valid_move(Move, Board),
-	write(is_valid),
 	Move = [[X1, Y1],[X2,Y2]],
 	nth0(Y1, Board, Line1),
 	replace(Line1,X1,white,NewLine1),
