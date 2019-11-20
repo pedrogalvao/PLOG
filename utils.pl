@@ -102,7 +102,7 @@ exampleBoard(
 		[empty,     empty,     empty,      empty,     empty,     empty,     empty,     empty],
 	    [empty,     white,     empty,      empty,     empty,     empty,     white,     empty],
 		[black,     white,     white,      empty,     black,     white,     empty,     empty],
-		[black,     black,     black,      black,     white,     black,     empty,     empty],
+		[white,     black,     black,      black,     black,     white,     empty,     empty],
 		[white,     white,     empty,      white,     black,     black,     white,     empty],
 		[empty,     empty,     empty,      black,     empty,     white,     empty,     empty],
 		[empty,     empty,     empty,      empty,     black,     empty,     empty,     empty]
@@ -204,10 +204,13 @@ holeBoard(
 ).
 
 
-testBoard(
+alignBoard(
 	[
-		[white,     black,     empty],
+		[black,     black,     black],
 		[black,     white,     black],
-		[empty,     empty,     empty]
+		[black,     white,     black],
+		[black,     white,     black],
+		[black,     white,     black],
+		[black,     black,     black]
 	]
 ).

@@ -11,17 +11,23 @@ value(Board, Player, Value) :-
         !
     );
     (
-        aligned(Board, Player, 4),
+        opponent(Player, Opponent),
+        aligned_free(Board, Opponent, 4),
+        Value is -1000,
+        !
+    );
+    (
+        aligned_free(Board, Player, 4),
         Value is 4,
         !
     );
     (
-        aligned(Board, Player, 3),
+        aligned_free(Board, Player, 3),
         Value is 3,
         !
     );
     (
-        aligned(Board, Player, 2),
+        aligned_free(Board, Player, 2),
         Value is 2,
         !
     );
@@ -120,15 +126,6 @@ continuePvP(Board, Player) :-
     ).
 
 
-evaluate_moves([], Board, Player, []).
-evaluate_moves(ListOfMoves, Board, Player, MovesValues) :-
-    append([X],Rest,ListOfMoves),
-    move(X, Board, Board2),
-    value(Board2, Player, Value),
-    evaluate_moves(Rest, Board, Player, RestMovesValues),
-    append([[X,Value]], RestMovesValues, MovesValues), !.
-
-
 startPvC :- 
     emptyBoard(InitialBoard),
     continuePvC(InitialBoard).
@@ -159,10 +156,11 @@ continuePvC(Board) :-
         );
         (
             nl, write('Invalid move, try again'), nl,
-            continuePvP(Board, Player)
+            continuePvC(Board)
         )
     ), !,
     display_game(NextBoard2),
+    write('Wait for computer to choose a move...'),
     choose_move(NextBoard2, 0, ComputerMove),
     move(ComputerMove, NextBoard2, NextBoard3),
     (

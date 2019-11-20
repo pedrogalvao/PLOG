@@ -106,21 +106,18 @@ expand(Board, Result) :-
 		(
 			nth0(0, Board, FirstLine),
 			length(FirstLine, K),
-			K1 is K,
-			columnN(Board, K1, LastColumn),
-			K2 is K-1,
-			columnN(Board, K2, LastColumn2),
+			columnN(Board, K, LastColumn),
+			K1 is K-1,
+			columnN(Board, K1, LastColumn2),
 			(
 				(
 					\+ member(white, LastColumn),
 					\+ member(black, LastColumn)
 				),
-				write(ali),
 				(
 					\+ member(white, LastColumn2),
 					\+ member(black, LastColumn2)
 				),
-				write(aqui),
 				Result = PreResult6
 			);
 			(
