@@ -11,7 +11,7 @@ value(Board, Player, Value) :-
         !
     );
     (
-        member(Line,Board),
+        member(Line, Board),
         aligned(Line, Player, 4),
         Value is 4,
         !
@@ -61,7 +61,6 @@ compare_values(Board1, Board2, Player) :-
 choose_move(Board1, Board2, Player) :-
     valid_moves(Board1, Player, ListOfMoves),
     member(Board2,ListOfMoves),
-    write(a),
     forall(member(N, ListOfMoves), compare_values(Board2, N, Player)).
 
 play :- 
@@ -121,7 +120,6 @@ startPvP :-
     continuePvP(InitialBoard, white).
 
 continuePvP(Board, Player) :-
-    clearConsole,
     display_game(Board), nl,
     write('Player '), write(Player), write(', choose your move'), nl,
     getPlayerMove(Move),
@@ -154,9 +152,31 @@ evaluate_moves([], Board, Player, []).
 evaluate_moves(ListOfMoves, Board, Player, MovesValues) :-
     append([X],Rest,ListOfMoves),
     move(X, Board, Board2),
-    display_game(Board2),
     value(Board2, Player, Value),
-    write('Value = '), write(Value),
     evaluate_moves(Rest, Board, Player, RestMovesValues),
     append([[X,Value]], RestMovesValues, MovesValues), !.
-    
+
+
+
+higherValues([], B, A, B).
+higherValues(MovesValues, AfterMovesValues) :- higherValues(MovesValues, AfterMovesValues, -1000, []).
+higherValues(MovesValues, BestMovesValues, MinValue, BestMovesValuesUntilNow) :-
+    append([X], Rest, MovesValues),
+    append(_, [Xval], X),
+    (
+        (
+            MinValue > Xval,
+            higherValues(Rest, BestMovesValues, MinValue, BestMovesValuesUntilNow)
+        );
+        (
+            Xval is MinValue,
+            append([X],  BestMovesValuesUntilNow,  BestMovesValuesUntilNow2),
+            higherValues(Rest, BestMovesValues, MinValue,  BestMovesValuesUntilNow2)
+        );
+        (
+            Xval > MinValue,
+            BestMovesValuesUntilNow2 = [X],
+            MinValue2 = Xval,
+            higherValues(Rest, BestMovesValues, MinValue2, BestMovesValuesUntilNow2)
+        )
+    ).

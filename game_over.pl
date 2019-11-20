@@ -1,50 +1,34 @@
-checkWinner([[white, white, white, white, white]], white).
-checkWinner([[black, black, black, black, black]], black).
-
-
-aligned(Line, Color, Number) :- aligned(Line, Color, Number, Number).
-aligned(Line, Color, Number, 0).
-aligned(Line, Color, Number, K) :-
+aligned(Board, Color, K) :-
     (
-        Line = [Color | SubLine],
+        member(Line, Board),
+        aligned_in_row(Line, Color, K)
+    );
+    (
+        transpose(Board, BoardT),
+        member(Line, BoardT),
+        aligned_in_row(Line, Color, K)
+    );
+    (
+        all_diagonals(Board, BoardD),
+        member(Line, BoardD),
+        aligned_in_row(Line, Color, K)
+    ).
+
+
+aligned_in_row(Line, Color, Number) :- aligned_in_row(Line, Color, Number, Number).
+aligned_in_row(Line, Color, Number, 0).
+aligned_in_row(Line, Color, Number, K) :-
+    (
+        Line = [Piece | SubLine],
+        color(Piece, Color),
         K2 is K-1,
-        aligned(SubLine, Color, Number, K2)
+        aligned_in_row(SubLine, Color, Number, K2)
     );
     (
         Line = [_ | SubLine],
-        aligned(SubLine, Color, Number, Number)
-    ).
-
-line5(Line, Color) :-
-    (
-        append([white, white, white, white, white], _, Line),
-        Color = white
-    );    
-    (
-        append([black, black, black, black, black], _, Line),
-        Color = black
-    );
-    (
-        Line = [_|Rest],
-        line5(Rest, Color)
-    ).
-
-checkLines(Board, Winner) :-
-    Board = [FirstLine | OtherLines],
-    (
-        line5(FirstLine, Winner);
-        (
-            \+ list_empty(OtherLines),
-            checkLines(OtherLines, Winner)
-        )
+        aligned_in_row(SubLine, Color, Number, Number)
     ).
 
 game_over(Board, Winner) :-
 	\+ list_empty(Board),
-	(
-		checkLines(Board, Winner)
-	) ;
-	(
-		transpose(Board, BoardT),
-		checkLines(BoardT, Winner)
-	).
+	aligned(Board, Winner, 5).

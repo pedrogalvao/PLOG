@@ -37,6 +37,62 @@ columnN([H|T], I, [R|X]):-
    rowN(H, I, R), 
 columnN(T,I,X).
 
+diagonal(Board, Number, Diagonal) :- diagonal(Board, Number, Diagonal, []).
+
+diagonal([], Number, Diagonal, Diagonal).
+
+diagonal(Board, Number, Diagonal, Diagonal) :- Number < 0.
+
+diagonal(Board, Number, Diagonal, AuxDiag) :-
+	Board = [FirstLine|Rest],
+	length(FirstLine,Len), 
+	(
+		(
+			Number >= Len,
+			AuxDiag2 = AuxDiag
+		);
+		(
+			Number < Len,
+			nth0(Number, FirstLine, Elem), 
+			append([Elem], AuxDiag, AuxDiag2)
+		)
+	),
+	Number2 is Number-1,
+	diagonal(Rest, Number2, Diagonal, AuxDiag2).
+
+
+
+all_diagonals(Board, Diagonals) :- 
+	Board = [FirstLine|_],
+	length(FirstLine, Len),
+	N is Len + Len - 2,
+	all_diagonals(Board, Diagonals, N, []), !.
+
+all_diagonals(Board, Diagonals, N, Diagonals) :- N < 0.
+all_diagonals(Board, Diagonals, N, AuxDiags) :-
+	diagonal(Board, N, Diag),
+	append([Diag], AuxDiags, AuxDiags2),
+	N2 is N-1,
+	all_diagonals(Board, Diagonals, N2, AuxDiags2).
+
+color(Piece, Color) :-
+	(
+		Piece = white,
+		Color = white
+	);
+	(
+		Piece = whiteCone,
+		Color = white
+	);
+	(
+		Piece = black,
+		Color = black
+	);
+	(
+		Piece = blak,
+		Color = blackCone
+	).
+
 
 opponent(Player, Opponent) :-
 	(
@@ -120,11 +176,11 @@ exampleBoardW(
 	[
 		[empty,     black,     empty,      empty,     empty,     empty,     empty,     empty],
 		[white,     white,     empty,      empty,     empty,     empty,     white,     empty],
-		[black,     white,     white,      white,     white,     white,     empty,     empty],
-		[black,     black,     black,      black,     white,     black,     empty,     empty],
+		[black,     white,     white,      white,     empty,     white,     empty,     empty],
+		[black,     black,     black,      black,     whiteCone, black,     empty,     empty],
 		[white,     white,     empty,      white,     black,     black,     white,     empty],
-		[empty,     empty,     empty,      black,     empty,     white,     empty,     empty],
-		[empty,     empty,     empty,      empty,     black,     empty,     empty,     empty]
+		[empty,     empty,     white,      black,     empty,     white,     empty,     empty],
+		[empty,     empty,     black,      empty,     black,     empty,     empty,     empty]
 	]
 ).
 
