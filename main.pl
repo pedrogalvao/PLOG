@@ -16,7 +16,7 @@ clearConsole(N):-
 	N1 is N-1,
 	clearConsole(N1).
 
-mainMenu:-
+play:-
 	printMainMenu,
 	get_char(Input),
 	get_char(_),

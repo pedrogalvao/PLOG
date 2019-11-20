@@ -172,7 +172,7 @@ exampleBoardW(
 	[
 		[empty,     black,     empty,      empty,     empty,     empty,     empty,     empty],
 		[white,     white,     empty,      empty,     empty,     empty,     white,     empty],
-		[black,     white,     white,      white,     empty,     white,     empty,     empty],
+		[black,     white,     white,      white,     white,     white,     empty,     empty],
 		[black,     black,     black,      black,     whiteCone, black,     empty,     empty],
 		[white,     white,     empty,      white,     black,     black,     white,     empty],
 		[empty,     empty,     white,      black,     empty,     white,     empty,     empty],
@@ -202,7 +202,6 @@ holeBoard(
 		[white,     black,     white]
 	]
 ).
-
 
 alignBoard(
 	[

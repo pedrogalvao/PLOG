@@ -182,34 +182,6 @@ continuePvC(Board) :-
     ).
 
 
-add_cone(Board, Color, Result) :- 
-    (
-        nth0(X, Board, Line),
-        nth0(Y, Line, Elem),
-        Elem = empty,
-        X2 is X+1,
-        Y2 is Y+1,
-        X3 is X-1,
-        Y3 is Y-1,
-        nth0(X2, Board, Line2),
-        nth0(Y, Line2, Elem2),
-        Elem2 \= empty,
-        nth0(Y3, Line2, Elem3),
-        Elem3 \= empty,
-        nth0(X3, Board, Line3),
-        nth0(Y, Line3, Elem4),
-        Elem4 \= empty,
-        nth0(Y2, Line3, Elem5),
-        Elem5 \= empty,
-        nth0(X2, Line, Elem6),
-        Elem6 \= empty,
-        nth0(X3, Line, Elem7),
-        Elem7 \= empty,
-        cone(Color, Cone),
-        replace(Line, Y, Cone, NewLine),
-        replace(Board, X, NewLine, Result)
-    ).
-
 
 
 

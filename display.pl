@@ -8,6 +8,7 @@ printLine([A|B]):-
 	(A = whiteCone, write(' o'), printLine(B));
 	(A = blackCone, write(' x'), printLine(B)).
 
+display_game(Board, Player) :- display_game(Board).
 display_game(Board) :-  nl, display_game(Board,0), nl.
 display_game([A|B], N) :-
 	nl,
@@ -18,6 +19,3 @@ display_game([A|B], N) :-
 		display_game(B,N+1)
 	), !.
 
-
-initialBoard([[white]]).
-initialBoard([[empty,empty,empty],[empty,white,empty],[empty,empty,empty]]).
