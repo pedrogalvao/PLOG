@@ -1,17 +1,5 @@
 list_empty([]).
 list_empty([[]]).
-/*
-transpose([[]|_], []).
-transpose(Matrix, [Row|Rows]) :- transpose_1st_col(Matrix, Row, RestMatrix),
-                                 transpose(RestMatrix, Rows).
-transpose_1st_col([], [], []).
-transpose_1st_col([[H|T]|Rows], [H|Hs], [T|Ts]) :- transpose_1st_col(Rows, Hs, Ts).
-
-lenght([],0).
-lenght(List, N) :-
-	List = [_|List2],
-	lenght(List2, N2),
-	N is N2+1.*/
 
 replace(List, Idx, With, ListOut) :-
    append(Before, [_Discard|Rest], List),
@@ -186,9 +174,8 @@ exampleBoardW(
 
 emptyBoard(
 	[
-		[empty,     empty,     empty],
-		[empty,     empty,     empty],
-		[empty,     empty,     empty]
+		[empty,     empty],
+		[empty,     empty]
 	]
 ).
 

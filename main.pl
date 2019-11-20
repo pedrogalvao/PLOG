@@ -109,6 +109,7 @@ printHowToPlay :-
 	write('| espacos onde desejar posicionar suas pecas. Deve especificar   |'), nl,
 	write('| numeros inteiros indicando primeiro as coordenadas da parte    |'), nl,
 	write('| branca e depois a da parte preta. Cada numero deve ser escrito |'), nl,
-	write('| com exatamente 2 algarismos.                                   |'), nl,
+	write('| com exatamente 2 algarismos. As coordenadas sao contadas a     |'), nl,
+	write('| do canto superior esquerdo do tabuleiro comecando em 0.        |'), nl,
 	write('|________________________________________________________________|'), nl,
 	write('Press enter to go back to the main menu'), nl.

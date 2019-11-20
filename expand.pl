@@ -43,9 +43,14 @@ expand(Board, Result) :-
 		(
 			(
 				nth0(0, Board, FirstLine),
+				nth0(1, Board, SecondLine),
 				(
 					\+ member(white, FirstLine) ,
 					\+ member(black, FirstLine)
+				),
+				(
+					\+ member(white, SecondLine) ,
+					\+ member(black, SecondLine)
 				),
 				PreResult2 = Board
 			);
@@ -57,7 +62,7 @@ expand(Board, Result) :-
 		(
 			last(Board, LastLine),
 			length(Board, K),
-			K2 is K-1,
+			K2 is K-2,
 			nth0(K2, Board, LastLine2),
 			(
 				(
@@ -72,17 +77,6 @@ expand(Board, Result) :-
 			);
 			(
 				(
-					\+ member(white, LastLine) ,
-					\+ member(black, LastLine)
-				),
-				(
-					member(white, LastLine2) ;
-					member(black, LastLine2)
-				),
-				addRowBottom(PreResult2, PreResult4)
-			);
-			(
-				(
 					member(white, LastLine) ;
 					member(black, LastLine)
 				),
@@ -93,9 +87,14 @@ expand(Board, Result) :-
 		(
 			(
 				columnN(Board, 1, FirstColumn),
+				columnN(Board, 1, SecondColumn),
 				(
 					\+ member(white, FirstColumn),
 					\+ member(black, FirstColumn)
+				),
+				(
+					\+ member(white, SecondColumn),
+					\+ member(black, SecondColumn)
 				),
 				PreResult6 = PreResult4
 			);
@@ -123,19 +122,6 @@ expand(Board, Result) :-
 					\+ member(black, LastColumn2)
 				),
 				Result = PreResult6
-			);		
-			(
-				write(LastColumn),
-				write(LastColumn2),
-				(
-					\+ member(white, LastColumn),
-					\+ member(black, LastColumn)
-				),
-				(
-					member(white, LastColumn2);
-					member(black, LastColumn2)
-				),
-				addColumnRight(PreResult6, Result)
 			);
 			(
 				(

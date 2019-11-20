@@ -24,37 +24,6 @@ move(Move, Board, NewBoard) :-
 	replace(PreNewBoard, Y2, NewLine2, NewBoard).
 
 
-
-validMove([[empty, empty]],[[white, black]]).
-validMove([[empty, empty]],[[black, white]]).
-
-validMove([[empty],[empty]],[[white], [black]]).
-validMove([[empty], [empty]],[[black], [white]]).
-
-validMove(
-	[
-		[X, empty], 
-		[empty, Y]
-	], 
-	[
-		[X, white], 
-		[black, Y]
-	]
-).
-
-
-validMove(
-	[
-		[X, empty], 
-		[empty, Y]
-	], 
-	[
-		[X, black], 
-		[white, Y]
-	]
-).
-
-
 valid_moves(Board, Player, ListOfMoves) :-
 	findall(Move, is_valid_move(Move, Board), ListOfMoves).
 
