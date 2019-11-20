@@ -52,11 +52,9 @@ value(Board, Player, Value) :-
     Value is 0.
 
 compare_values(Board1, Board2, Player) :-
-    write(comp1_),
     value(Board1, Player, Value1), 
     value(Board2, Player, Value2), 
-    Value1 >= Value2,
-    write(comp2_).
+    Value1 >= Value2.
 
 choose_move(Board1, Board2, Player) :-
     valid_moves(Board1, Player, ListOfMoves),
@@ -95,8 +93,7 @@ getPlayerMove(Move):-
     write('y2='),
     getNumber(Y2),
     get_char(_),
-    Move = [[X1, Y1],[X2, Y2]],
-    write(Move).
+    Move = [[X1, Y1],[X2, Y2]].
 
 getNumber(N):-
     (
@@ -125,7 +122,11 @@ continuePvP(Board, Player) :-
     getPlayerMove(Move),
     (
         (
-            move(Move, Board, NextBoard),
+            move(Move, Board, PreNextBoard),
+            (
+                add_cone(PreNextBoard, Player, NextBoard);
+                PreNextBoard = NextBoard
+            ),
             (
                 (
                     game_over(NextBoard, Winner),
@@ -180,3 +181,33 @@ higherValues(MovesValues, BestMovesValues, MinValue, BestMovesValuesUntilNow) :-
             higherValues(Rest, BestMovesValues, MinValue2, BestMovesValuesUntilNow2)
         )
     ).
+
+
+add_cone(Board, Color, Result) :- 
+    (
+        nth0(X, Board, Line),
+        nth0(Y, Line, Elem),
+        Elem = empty,
+        X2 is X+1,
+        Y2 is Y+1,
+        X3 is X-1,
+        Y3 is Y-1,
+        nth0(X2, Board, Line2),
+        nth0(Y, Line2, Elem2),
+        Elem2 \= empty,
+        nth0(Y3, Line2, Elem3),
+        Elem3 \= empty,
+        nth0(X3, Board, Line3),
+        nth0(Y, Line3, Elem4),
+        Elem4 \= empty,
+        nth0(Y2, Line3, Elem5),
+        Elem5 \= empty,
+        cone(Color, Cone),
+        replace(Line, Y, Cone, NewLine),
+        replace(Board, X, NewLine, Result)
+    ).
+
+
+
+
+

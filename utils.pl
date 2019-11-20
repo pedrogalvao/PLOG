@@ -87,7 +87,15 @@ opponent(Player, Opponent) :-
 		(Player = black, Opponent = white);
 		(Player = white, Opponent = black)
 	).
-
+cone(Color, Cone) :-
+	(
+		Color = white,
+		Cone = whiteCone
+	);
+	(
+		Color = black,
+		Cone = blackCone
+	).
 
 exampleBoard(
 	[
@@ -184,6 +192,14 @@ onePieceBoard(
 		[empty,     empty,     empty],
 		[black,     empty,     empty],
 		[empty,     empty,     empty]
+	]
+).
+
+holeBoard(
+	[
+		[black,     white,     white],
+		[black,     empty,     black],
+		[white,     black,     white]
 	]
 ).
 

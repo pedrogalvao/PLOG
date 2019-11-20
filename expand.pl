@@ -87,7 +87,7 @@ expand(Board, Result) :-
 		(
 			(
 				columnN(Board, 1, FirstColumn),
-				columnN(Board, 1, SecondColumn),
+				columnN(Board, 2, SecondColumn),
 				(
 					\+ member(white, FirstColumn),
 					\+ member(black, FirstColumn)
@@ -106,21 +106,21 @@ expand(Board, Result) :-
 		(
 			nth0(0, Board, FirstLine),
 			length(FirstLine, K),
-			columnN(Board, K, LastColumn),
+			K1 is K,
+			columnN(Board, K1, LastColumn),
 			K2 is K-1,
-			write(LastColumn),
 			columnN(Board, K2, LastColumn2),
-			write(LastColumn2),
 			(
-				write(LastColumn),
 				(
 					\+ member(white, LastColumn),
 					\+ member(black, LastColumn)
 				),
+				write(ali),
 				(
 					\+ member(white, LastColumn2),
 					\+ member(black, LastColumn2)
 				),
+				write(aqui),
 				Result = PreResult6
 			);
 			(
