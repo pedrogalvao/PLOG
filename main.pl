@@ -1,9 +1,9 @@
-:- include('c:/Users/Estudio/Desktop/PLOG/PLOG/utils.pl').
-:- include('c:/Users/Estudio/Desktop/PLOG/PLOG/play.pl').
-:- include('c:/Users/Estudio/Desktop/PLOG/PLOG/display.pl').
-:- include('c:/Users/Estudio/Desktop/PLOG/PLOG/validMove.pl').
-:- include('c:/Users/Estudio/Desktop/PLOG/PLOG/game_over.pl').
-:- include('c:/Users/Estudio/Desktop/PLOG/PLOG/expand.pl').
+:- include('utils.pl').
+:- include('play.pl').
+:- include('display.pl').
+:- include('moves.pl').
+:- include('game_over.pl').
+:- include('expand.pl').
 :- use_module(library(lists)).
 :- use_module(library(random)).
 
@@ -27,8 +27,8 @@ play:-
 
 		nl,
 		write('Error: invalid input.'), nl,
-		pressEnterToContinue, nl,
-		mainMenu
+		nl,
+		play
 	).
 
 
@@ -44,13 +44,13 @@ gameModeMenu:-
 		nl,
 		write('Error: invalid input.'), nl,
 		pressEnterToContinue, nl,
-		mainMenu
+		play
 	).
 
 howToPlay :-
 	printHowToPlay,
 	get_char(_),
-	mainMenu.
+	play.
 
 
 printMainMenu:-
