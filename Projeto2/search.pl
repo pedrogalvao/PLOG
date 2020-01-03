@@ -79,7 +79,10 @@ restSum2(Rest, Sum) :-
 
 
 solveRow(Sum, Row) :-
-    Sum = empty;
+    (
+        Sum = empty,
+        any(Row)        
+    );
     (
         Row = [A|_],
         rowSum2(Row, Sum),
@@ -87,6 +90,20 @@ solveRow(Sum, Row) :-
     ).
 
 
+solveRows([], []).
+solveRows(Sums, Rows):-
+    Rows = [Row1|RestRows],
+    Sums = [Sum1|RestSums],
+    solveRow(Sum1,Row1),
+    solveRows(RestSums, RestRows).
+
+
+solve(Board):-
+    nth0(0, Board, ColSums),
+    nth0(1, Board, RowSums),
+    nth0(2, Board, Cells),
+    solveRows(RowSums, Cells),
+    display_game(Board).
 
 
 
