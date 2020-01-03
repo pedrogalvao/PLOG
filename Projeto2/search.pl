@@ -29,10 +29,19 @@ rowSum2(Row, Sum) :-
     (
         write(' AAA2 '), nl,
         Row = [A | Rest],
-        A #\= -1,
+        A in 1..3,
         rowSum2(Rest, Sum),
         labeling([], [A , Sum])
     ).
+
+
+
+any([]).
+any(List):-
+    List = [A|Rest],
+    A in 1..3,
+    any(Rest),
+    labeling([], [A]).
 
 
 
@@ -49,10 +58,12 @@ restSum2(Rest, Sum) :-
     Len > 1,
     (
         (
-        write(' BBB1 '), nl,
-            Row = [A | Rest],
+            write(' BBB1 '), write(Rest), nl,
+            Rest = [A | Rest2],
             A = -1,
-            Sum = 0
+            Sum = 0,
+            any(Rest2),
+            write(A)
         );
         (
             write(' BBB2 '), nl,
@@ -62,7 +73,7 @@ restSum2(Rest, Sum) :-
             restSum2(Rest2, Sum2),
             Sum #= Sum2 + A,
             Sum2 #= Sum - A,
-            labeling([], [Sum2|Rest])            
+            labeling([], [Sum2,A])
         )
     ).
 
@@ -70,13 +81,9 @@ restSum2(Rest, Sum) :-
 solveRow(Sum, Row) :-
     Sum = empty;
     (
-        A in -1..3,
-        B in -1..3,
-        C in -1..3,
-        D in -1..3,
-        E in -1..3,
-        rowSum2([A, B, C, D, E], Sum),
-        Row = [A, B, C, D, E]
+        Row = [A|_],
+        rowSum2(Row, Sum),
+        labeling([], [A])
     ).
 
 
