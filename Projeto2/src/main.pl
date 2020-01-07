@@ -1,0 +1,9 @@
+:- use_module(library(clpfd)).
+:- use_module(library(lists)).
+:- use_module(library(random)).
+:- consult('generate.pl').
+:- consult('display.pl').
+:- consult('search.pl').
+:- consult('utils.pl').
+:- consult('sums.pl').
+:- consult('test.pl').

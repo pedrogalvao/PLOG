@@ -16,12 +16,12 @@ printLine([A|B]):-
 
 
 display_game(Board) :-  
-	nth0(1,Board, RowsSums),
-	nth0(0,Board, ColSums),
+	nth0(1,Board, ColSums),
+	nth0(0,Board, RowSums),
 	nth0(2,Board, Cells),
 	nl, write(' '),
 	display_colsums(ColSums),
-	display_rows(RowsSums, Cells), nl.
+	display_rows(RowSums, Cells), nl, !.
 
 
 display_rows([],[]).
@@ -29,7 +29,7 @@ display_rows([S1|S],[A|B]) :-
 	nl,
 	(
 		(
-			S1=empty,
+			S1 = -1,
 			write(' ')
 		);
 		write(S1)
@@ -40,5 +40,5 @@ display_rows([S1|S],[A|B]) :-
 
 display_colsums([]).
 display_colsums([A|B]):-
-	(A = empty, write('    '), display_colsums(B));
+	(A = -1, write('    '), display_colsums(B));
 	(write('   '), write(A), display_colsums(B)).

@@ -1,0 +1,12 @@
+# PLOG
+
+## Projeto 2: Smashed Sums
+
+Consultar main.pl para carregar os arquivos e bibliotecas necessários.
+O tabuleiro do jogo é uma lista que contem 3 listas: 
+A primeira contem as somas requisitadas para as colunas
+A segunda contem as somas requisitadas para as fileiras
+A terceira é uma lista de listas contendo as casas do tabuleiro, cada uma com um número ou uma variável
+A função checkSums retorna yes quando as somas indicadas requisitadas são iguais aos resultados obtidos em todas as colunas e fileiras.
+A função solve(Board) toma como argumento um tabuleiro que pode estar com variáveis e/ou constantes em suas casas e encontra valores apropriados para as variáveis de modo a satisfazer as somas esperadas para as fileiras.
+Infelizmente não conseguimos considerar as somas das colunas.
